@@ -1,8 +1,10 @@
 const { prompts } = require('inquirer');
 const inquirer = require('inquirer');
+const fs = require('fs')
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
+const writeFile = require('./lib/writeFile');
 
 const managerArr = []
 const engineerArr = []
@@ -52,11 +54,31 @@ const askManager = function() {
                 console.log('\nPlease enter a valid response');
                 return false
             }
+        },
+        {
+            type: 'list',
+            name: 'next',
+            message: 'Would you like to add engineers, interns, or complete your team and generate your HTML?',
+            choices: ['Input Engineers', 'Input Interns', 'Generate HTML']
         }
     ])
-    .then(({ name, id, email, officeNumber }) => {
+    .then(({ name, id, email, officeNumber, next }) => {
         const manager = new Manager(name, id, email, officeNumber)
         managerArr.push(manager)
+
+        if (next === 'Input Engineers') {
+            askEngineer()
+        }
+        else if (next === 'Input Interns') {
+            askIntern()
+        }
+        else {
+            return generateHTML();
+        }
+    })
+    .then(html => {
+        writeFile(html)
+        console.log('Page created! Check the /dist folder to find your index.html file!');
     })
 }
 
@@ -138,16 +160,22 @@ const askEngineer = function() {
                                 })
                                 .then(({ end }) => {
                                     if (end) {
-                                        generateHTML()
+                                       return generateHTML()
+                                        
                                     }
                                     else {
                                         promptEngineer()
                                     }
                                 })
+                                .then(html => {
+                                    writeFile(html)
+                                    console.log('Page created! Check the /dist folder to find your index.html file!');
+                                })
                         }
                     })
             }
         }
+        promptEngineer();
     })
 }
 
@@ -217,7 +245,7 @@ const askIntern = function() {
                 })
                 .then(({ end }) => {
                     if (end) {
-                        generateHTML();
+                        return generateHTML()
                     }
                     else {
                         inquirer.prompt({
@@ -234,10 +262,18 @@ const askIntern = function() {
                                 askIntern()
                             }
                             else {
-                                generateHTML()
+                                return generateHTML()
                             }
                         })
+                        .then(html => {
+                            writeFile(html)
+                            console.log('Page created! Check the /dist folder to find your index.html file!');
+                        })
                     }
+                })
+                .then(html => {
+                    writeFile(html)
+                    console.log('Page created! Check the /dist folder to find your index.html file!');
                 })
         }
     })
@@ -269,7 +305,7 @@ const getEngineers = function() {
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${engineerArr[i].getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${engineerArr.getEmail()}">${engineerArr[i].getEmail()}</li>
+                <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</li>
                 <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</li>
             </ul>
         </div>\n`
@@ -289,7 +325,7 @@ const getInterns = function () {
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${internArr[i].getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${internArr.getEmail()}">${internArr[i].getEmail()}</li>
+                <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</li>
                 <li class="list-group-item">School: ${internArr[i].school}</li>
             </ul>
         </div>\n`
@@ -299,5 +335,26 @@ const getInterns = function () {
 }
 
 const generateHTML = function() {
-    
+    return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>My Team</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <header class="col-12 fs-1 p-5 bg-primary bg-gradient text-white text-center fw-bold">My Team</header>
+        <section class="col-12 d-flex justify-content-around">
+            ${getManager()}
+            ${getEngineers()}
+            ${getInterns()}
+        </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+    </html>`
 }
+
+askManager();
