@@ -73,12 +73,8 @@ const askManager = function() {
             askIntern()
         }
         else {
-            return generateHTML();
+            endFunc();
         }
-    })
-    .then(html => {
-        writeFile(html)
-        console.log('Page created! Check the /dist folder to find your index.html file!');
     })
 }
 
@@ -160,16 +156,12 @@ const askEngineer = function() {
                                 })
                                 .then(({ end }) => {
                                     if (end) {
-                                       return generateHTML()
+                                        endFunc();
                                         
                                     }
                                     else {
                                         promptEngineer()
                                     }
-                                })
-                                .then(html => {
-                                    writeFile(html)
-                                    console.log('Page created! Check the /dist folder to find your index.html file!');
                                 })
                         }
                     })
@@ -245,7 +237,7 @@ const askIntern = function() {
                 })
                 .then(({ end }) => {
                     if (end) {
-                        return generateHTML()
+                        endFunc();
                     }
                     else {
                         inquirer.prompt({
@@ -262,18 +254,10 @@ const askIntern = function() {
                                 askIntern()
                             }
                             else {
-                                return generateHTML()
+                                endFunc();
                             }
                         })
-                        .then(html => {
-                            writeFile(html)
-                            console.log('Page created! Check the /dist folder to find your index.html file!');
-                        })
                     }
-                })
-                .then(html => {
-                    writeFile(html)
-                    console.log('Page created! Check the /dist folder to find your index.html file!');
                 })
         }
     })
@@ -355,6 +339,11 @@ const generateHTML = function() {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>
     </html>`
+}
+
+const endFunc = function() {
+    writeFile(generateHTML())
+    console.log('Page created! Check the /dist folder to find your index.html file!');
 }
 
 askManager();
