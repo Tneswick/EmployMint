@@ -265,8 +265,8 @@ const askIntern = function() {
 
 const getManager = function() {
     const html = 
-    `<div class="card col-2">
-        <div class="card-header fs-5 text-center">
+    `<div class="card col-2 shadow rounded">
+        <div class="card-header fs-5 text-center bg-danger bg-gradient text-white">
             ${managerArr[0].getName()}<br/>
             <strong>Manager</strong>
         </div>
@@ -312,7 +312,7 @@ const getInterns = function () {
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${internArr[i].getId()}</li>
                 <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</a></li>
-                <li class="list-group-item">School: ${internArr[i].school}</li>
+                <li class="list-group-item">School: ${internArr[i].getSchool()}</li>
             </ul>
         </div>\n`
         html += intern        
@@ -322,25 +322,27 @@ const getInterns = function () {
 
 const generateHTML = function() {
     return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Team</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    </head>
-    <body>
-        <header class="col-12 fs-1 p-5 bg-primary bg-gradient text-white text-center fw-bold shadow-lg mb-5">My Team</header>
-        <section class="grid d-flex justify-content-around">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Team</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<body>
+    <header class="col-12 fs-1 p-5 bg-primary bg-gradient text-white text-center fw-bold shadow-lg mb-5">My Team</header>
+    <section class="row justify-content-around">
+        <div class="col-2">
             ${getManager()}
             ${getEngineers()}
             ${getInterns()}
-        </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    </body>
-    </html>`
+        </div>
+    </section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>`
 }
 
 const endFunc = function() {
