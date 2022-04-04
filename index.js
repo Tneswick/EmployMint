@@ -264,8 +264,8 @@ const askIntern = function() {
 }
 
 const getManager = function() {
-    return `
-    <div class="card col-2 m-5">
+    const html = 
+    `<div class="card col-2">
         <div class="card-header fs-5 text-center">
             ${managerArr[0].getName()}<br/>
             <strong>Manager</strong>
@@ -276,14 +276,16 @@ const getManager = function() {
             <li class="list-group-item">Office Number: ${managerArr[0].officeNumber}</li>
         </ul>
     </div>`
+
+    return html;
 }
 
 const getEngineers = function() {
     let html = "" 
     for (let i = 0; i < engineerArr.length; i++) {
         const engineer =
-        `<div class="card col-2 m-5">
-            <div class="card-header fs-5 text-center">
+        `<div class="card col-2 shadow rounded">
+            <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
                 ${engineerArr[i].getName()}<br/>
                 <strong>Engineer</strong>
             </div>
@@ -302,8 +304,8 @@ const getInterns = function () {
     let html = ""
     for (let i = 0; i < internArr.length; i++) {
         const intern = 
-        `<div class="card col-2 m-5">
-            <div class="card-header fs-5 text-center">
+        `<div class="card col-2 shadow rounded">
+            <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
                 ${internArr[i].getName()}<br/>
                 <strong>Intern</strong>
             </div>
@@ -330,8 +332,8 @@ const generateHTML = function() {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
     <body>
-        <header class="col-12 fs-1 p-5 bg-primary bg-gradient text-white text-center fw-bold">My Team</header>
-        <section class="col-12 d-flex justify-content-around">
+        <header class="col-12 fs-1 p-5 bg-primary bg-gradient text-white text-center fw-bold shadow-lg mb-5">My Team</header>
+        <section class="grid d-flex justify-content-around">
             ${getManager()}
             ${getEngineers()}
             ${getInterns()}
