@@ -289,8 +289,8 @@ const getEngineers = function() {
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${engineerArr[i].getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</li>
-                <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</li>
+                <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</a></li>
+                <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</a></li>
             </ul>
         </div>\n`
         html += engineer
@@ -309,7 +309,7 @@ const getInterns = function () {
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${internArr[i].getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</li>
+                <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</a></li>
                 <li class="list-group-item">School: ${internArr[i].school}</li>
             </ul>
         </div>\n`
