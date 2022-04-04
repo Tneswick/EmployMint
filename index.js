@@ -1,10 +1,9 @@
 const { prompts } = require('inquirer');
 const inquirer = require('inquirer');
-const fs = require('fs')
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
-const writeFile = require('./lib/writeFile');
+const writeFile = require('./src/writeFile');
 
 const managerArr = []
 const engineerArr = []
@@ -263,6 +262,7 @@ const askIntern = function() {
     })
 }
 
+// html building functions
 const getManager = function() {
     const html = 
     `<div class="card col-2 shadow rounded">
@@ -284,17 +284,19 @@ const getEngineers = function() {
     let html = "" 
     for (let i = 0; i < engineerArr.length; i++) {
         const engineer =
-        `<div class="card col-2 shadow rounded">
-            <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
-                ${engineerArr[i].getName()}<br/>
-                <strong>Engineer</strong>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${engineerArr[i].getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</a></li>
-                <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</a></li>
-            </ul>
-        </div>\n`
+        `<div class="col-2">
+            <div class="card shadow rounded">
+                <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
+                    ${engineerArr[i].getName()}<br/>
+                    <strong>Engineer</strong>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${engineerArr[i].getId()}</li>
+                    <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</a></li>
+                    <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</a></li>
+                </ul>
+            </div>\n
+        </div>`
         html += engineer
     }
     return html;
@@ -304,17 +306,19 @@ const getInterns = function () {
     let html = ""
     for (let i = 0; i < internArr.length; i++) {
         const intern = 
-        `<div class="card col-2 shadow rounded">
-            <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
-                ${internArr[i].getName()}<br/>
-                <strong>Intern</strong>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">ID: ${internArr[i].getId()}</li>
-                <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</a></li>
-                <li class="list-group-item">School: ${internArr[i].getSchool()}</li>
-            </ul>
-        </div>\n`
+        `<div class="col-2>
+            <div class="card shadow rounded">
+                <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
+                    ${internArr[i].getName()}<br/>
+                    <strong>Intern</strong>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ID: ${internArr[i].getId()}</li>
+                    <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</a></li>
+                    <li class="list-group-item">School: ${internArr[i].getSchool()}</li>
+                </ul>
+            </div>\n
+        </div>`
         html += intern        
     }
     return html;
@@ -334,11 +338,9 @@ const generateHTML = function() {
 <body>
     <header class="col-12 fs-1 p-5 bg-primary bg-gradient text-white text-center fw-bold shadow-lg mb-5">My Team</header>
     <section class="row justify-content-around">
-        <div class="col-2">
-            ${getManager()}
-            ${getEngineers()}
-            ${getInterns()}
-        </div>
+        ${getManager()}
+        ${getEngineers()}
+        ${getInterns()}
     </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
