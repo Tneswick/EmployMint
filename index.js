@@ -295,7 +295,7 @@ const getEngineers = function() {
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">ID: ${engineerArr[i].getId()}</li>
                     <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</a></li>
-                    <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</a></li>
+                    <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}" target="_blank">${engineerArr[i].github}</a></li>
                 </ul>
             </div>
         </div>\n`
