@@ -147,7 +147,7 @@ const askEngineer = function() {
                         }
                         else {
                             inquirer
-                                prompt({
+                                .prompt({
                                     type: 'confirm',
                                     name: 'end',
                                     message: 'Would you like to complete your team and generate the HTML?',
@@ -203,7 +203,7 @@ const askIntern = function() {
         },
         {
             type: 'input',
-            name: 'github',
+            name: 'school',
             message: "What is the name of the intern's school?",
             validate: github => {
                 if (github) {
@@ -265,17 +265,19 @@ const askIntern = function() {
 // html building functions
 const getManager = function() {
     const html = 
-    `<div class="card col-2 shadow rounded">
-        <div class="card-header fs-5 text-center bg-danger bg-gradient text-white">
-            ${managerArr[0].getName()}<br/>
-            <strong>Manager</strong>
+    `<div class="col-2">
+        <div class="card shadow rounded">
+            <div class="card-header fs-5 text-center bg-danger bg-gradient text-white">
+                ${managerArr[0].getName()}<br/>
+                <strong>Manager</strong>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${managerArr[0].getId()}</li>
+                <li class="list-group-item">Email: <a href="mailto: ${managerArr[0].getEmail()}">${managerArr[0].getEmail()}</a></li>
+                <li class="list-group-item">Office Number: ${managerArr[0].officeNumber}</li>
+            </ul>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: ${managerArr[0].getId()}</li>
-            <li class="list-group-item">Email: <a href="mailto: ${managerArr[0].getEmail()}">${managerArr[0].getEmail()}</a></li>
-            <li class="list-group-item">Office Number: ${managerArr[0].officeNumber}</li>
-        </ul>
-    </div>`
+    </div>\n`
 
     return html;
 }
@@ -295,8 +297,8 @@ const getEngineers = function() {
                     <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i].getEmail()}">${engineerArr[i].getEmail()}</a></li>
                     <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i].github}">${engineerArr[i].github}</a></li>
                 </ul>
-            </div>\n
-        </div>`
+            </div>
+        </div>\n`
         html += engineer
     }
     return html;
@@ -306,7 +308,7 @@ const getInterns = function () {
     let html = ""
     for (let i = 0; i < internArr.length; i++) {
         const intern = 
-        `<div class="col-2>
+        `<div class="col-2">
             <div class="card shadow rounded">
                 <div class="card-header fs-5 text-center bg-dark bg-gradient text-white">
                     ${internArr[i].getName()}<br/>
@@ -317,8 +319,8 @@ const getInterns = function () {
                     <li class="list-group-item">Email: <a href="mailto: ${internArr[i].getEmail()}">${internArr[i].getEmail()}</a></li>
                     <li class="list-group-item">School: ${internArr[i].getSchool()}</li>
                 </ul>
-            </div>\n
-        </div>`
+            </div>
+        </div>\n`
         html += intern        
     }
     return html;
