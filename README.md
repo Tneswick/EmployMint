@@ -13,6 +13,9 @@
 
 ***Once completed, navigate to the /dist folder to find your generated index.html!*** 
 
+## 📸 Screenshot of HTML
+<img src="./lib/imgs/screenshot.png" style="width: 900px"/>
+
 ## 🔨 Built With
 - JavaScript
 - [NodeJS](https://nodejs.org)
